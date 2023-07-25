@@ -4,17 +4,6 @@ from datetime import datetime
 import pandas as pd
 from datetime import timedelta
 
-import git
-
-def get_git_root(path):
-
-        git_repo = git.Repo(path, search_parent_directories=True)
-        git_root = git_repo.git.rev_parse("--show-toplevel")
-        print (git_root)
-
-if __name__ == "__main__":
-    get_git_root("autoClose.py")
-
 repo_owner, repo_name = "nbajaj16", "AutoCloseRequest"
 
 api = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
