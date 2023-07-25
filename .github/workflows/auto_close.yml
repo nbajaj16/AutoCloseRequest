@@ -1,8 +1,6 @@
 ---
 name: run python script
-on:
-  schedule:
-    - cron: "* * * * *"
+on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
