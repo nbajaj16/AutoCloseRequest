@@ -3,8 +3,7 @@ import requests
 import yaml
 import pandas as pd
 
-from datetime import datetime 
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 temp_dict = {}
 
@@ -21,9 +20,10 @@ repo_url = temp_dict['url']
 
 repo_owner, repo_name = repo_url.split(os.path.sep)[-2:]
 
+#apis
 api_pulls = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
 api_for_email = f"https://api.github.com/users/{repo_owner}/events/public"
-access_token = "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"
+access_token = "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"
 
 def get_data(api):
     response = requests.get(api)
@@ -45,16 +45,17 @@ def close_request(number):
     headers = {
         "Authorization" : f"Bearer {access_token}"
     }
-    print(patch_api)
     patch_request = requests.patch(patch_api, headers=headers, json=data)
     return patch_request
 
 for pr_data in pull_requests:
     if pr_data['state'] == 'open' and pr_data['base']['ref'] == 'b1':
-        print("PR with the title :", pr_data['title'], "and the id", pr_data['id'])
-        created_at_date = pd.to_datetime(pr_data['created_at']).date()
-        difference = datetime.now().date() - created_at_date
-        if difference > timedelta(days=10):
-            close_request(pr_data['number'])
-        elif difference > timedelta(minutes=8) and difference < timedelta(days=10):
+        print("PR with the title:", pr_data['title'], "and the id", pr_data['id'], "\n")
+        created_at_time = datetime.fromisoformat(pr_data['created_at'].replace('Z', '+00:00'))
+        current_time = datetime.now(timezone.utc)  # Convert current time to UTC
+        difference = current_time - created_at_time
+        if difference > timedelta(minutes=5):
+            print(close_request(pr_data['number']))
+        elif difference > timedelta(days=8) and difference < timedelta(days=10):
+            print("For PR with title", pr_data['title'])
             email_func()
