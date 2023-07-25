@@ -8,7 +8,7 @@ from datetime import timedelta
 current_file_path = inspect.getframeinfo(inspect.currentframe()).filename
 current_file_dir = os.path.basename(current_file_path).replace(".py", "")
 
-# print(current_file_dir)
+print(current_file_path)
 
 # repo_owner, repo_name = current_file_dir.split(os.path.sep)[-3:-1]
 
