@@ -55,7 +55,7 @@ for pr_data in pull_requests:
         current_time = datetime.now(timezone.utc)  # Convert current time to UTC
         difference = current_time - created_at_time
         if difference > timedelta(minutes=5):
-            print(close_request(pr_data['number']))
+            close_request(pr_data['number'])
         elif difference > timedelta(days=8) and difference < timedelta(days=10):
             print("For PR with title", pr_data['title'])
             email_func()
