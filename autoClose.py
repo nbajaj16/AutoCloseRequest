@@ -9,7 +9,7 @@ repo_owner, repo_name = "nbajaj16", "AutoCloseRequest"
 
 api = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
 api_for_email = f"https://api.github.com/users/{repo_owner}/events/public"
-access_token = os.environ["access_token"]
+access_token = "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"
 
 def get_data(api):
     response = requests.get(api)
@@ -28,6 +28,7 @@ def close_request(number):
     headers = {
         "Authorization" : f"Bearer {access_token}"  # Replace with your GitHub access token
     }
+    print(patch_api)
     patch_request = requests.patch(patch_api, headers=headers, json=data)
     return patch_request
 
