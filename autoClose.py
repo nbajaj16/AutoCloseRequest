@@ -23,7 +23,7 @@ repo_owner, repo_name = repo_url.split(os.path.sep)[-2:]
 #apis
 api_pulls = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
 api_for_email = f"https://api.github.com/users/{repo_owner}/events/public"
-access_token = "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"
+access_token = os.environ("access_token")
 
 def get_data(api):
     response = requests.get(api)
