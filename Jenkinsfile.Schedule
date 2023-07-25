@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/yourusername/yourrepository.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/nbajaj16/AutoCloseRequest.git']]])
             }
         }
         stage('Setup Python') {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Execute Python Script') {
             environment {
-                GITHUB_ACCESS_TOKEN = credentials('your-github-token-id')  // Use Jenkins credentials plugin to store the GitHub access token securely
+                GITHUB_ACCESS_TOKEN = credentials('access_token')  // Use Jenkins credentials plugin to store the GitHub access token securely
             }
             steps {
                 sh 'python autoClose.py'
