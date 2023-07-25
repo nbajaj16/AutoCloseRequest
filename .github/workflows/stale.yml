@@ -1,33 +1,24 @@
-# This workflow warns and then closes issues and PRs that have had no activity for a specified amount of time.
-#
-# You can adjust the behavior by modifying this file.
-# For more information, see:
-# https://github.com/actions/stale
-name: Mark stale issues and pull requests
+name: run autoClose.py
 
 on:
   schedule:
-  - cron: '41 19 * * *'
+    - cron: '* * * * *'
 
 jobs:
-  stale:
-
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
-
     steps:
-    - uses: actions/stale@v5
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
-        close-pr-message: 'This PR was closed because it has been stalled for 10 days with no activity.'
-        days-before-issue-stale: 30
-        days-before-pr-stale: 1
-        days-before-issue-close: 5
-        days-before-pr-close: 0
-        ignore-updates: true
+    
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: execute py script # run main.py
+        env:
+          access_token: ${{ secrets.ACCESS_TOKEN}}
+        run: python autoClose.py
