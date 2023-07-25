@@ -36,7 +36,7 @@ for data in api_call:
     if data['state'] == 'open':
         created_at_date = pd.to_datetime(data['created_at']).date()
         difference = datetime.now().date() - created_at_date
-        if difference > timedelta(days=10):
+        if difference > timedelta(minutes=5):
             close_request(data['number'])
         elif difference > timedelta(days=8) and difference < timedelta(days=10):
             email_func()
