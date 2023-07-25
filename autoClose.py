@@ -8,7 +8,7 @@ from datetime import timedelta
 
 temp_dict = {}
 
-with open("/Users/nbajaj/Desktop/AutoCloseRequest/.github/workflows/config.yml") as file:
+with open("config.yml") as file:
     try:
         pr_data = yaml.safe_load(file)
         for key, value in pr_data.items():
@@ -21,6 +21,7 @@ repo_url = temp_dict['url']
 
 repo_owner, repo_name = repo_url.split(os.path.sep)[-2:]
 
+#apis
 api_pulls = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
 api_for_email = f"https://api.github.com/users/{repo_owner}/events/public"
 access_token = "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"
