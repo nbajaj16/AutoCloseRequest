@@ -9,6 +9,7 @@ repo_owner, repo_name = "nbajaj16", "AutoCloseRequest"
 api = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
 api_for_email = f"https://api.github.com/users/{repo_owner}/events/public"
 access_token = os.environ["access_token"]
+print(os.getcwd())
 
 def get_data(api):
     response = requests.get(api)
