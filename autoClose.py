@@ -8,7 +8,7 @@ from datetime import timedelta
 
 temp_dict = {}
 
-with open("/Users/nbajaj/Desktop/AutoCloseRequest/.github/workflows/config.yml") as file:
+with open("config.yml") as file:
     try:
         pr_data = yaml.safe_load(file)
         for key, value in pr_data.items():
