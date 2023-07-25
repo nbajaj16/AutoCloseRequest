@@ -23,5 +23,5 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-          access_token: ${{ secrets.ACCESS_TOKEN}}
+          access_token: ${{ secrets.GITHUB_TOKEN}}
         run: python autoClose.py
