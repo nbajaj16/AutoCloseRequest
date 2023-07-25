@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    triggers {
+        cron('* * * * *')   // Run the job once a day at midnight
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/yourusername/yourrepository.git']]])
+            }
+        }
+        stage('Setup Python') {
+            steps {
+                sh 'python3 -m venv venv'
+                sh 'source venv/bin/activate'
+                sh 'pip install --upgrade pip'
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Execute Python Script') {
+            environment {
+                GITHUB_ACCESS_TOKEN = credentials('your-github-token-id')  // Use Jenkins credentials plugin to store the GitHub access token securely
+            }
+            steps {
+                sh 'python autoClose.py'
+            }
+        }
+    }
+}
