@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 from datetime import timedelta
 
-current_file_path = inspect.getframeinfo(inspect.currentframe()).filename
+current_file_path = os.path.realpath(__file__)
 current_file_dir = os.path.basename(current_file_path).replace(".py", "")
 
 print(current_file_path)
