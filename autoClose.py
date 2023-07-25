@@ -1,4 +1,3 @@
-import inspect
 import os
 import requests
 from datetime import datetime 
@@ -26,7 +25,7 @@ def close_request(number):
         'state' : 'closed'
     } 
     headers = {
-        "Authorization" : f"Bearer {access_token}"  # Replace with your GitHub access token
+        "Authorization" : f"Bearer {access_token}"
     }
     print(patch_api)
     patch_request = requests.patch(patch_api, headers=headers, json=data)
@@ -37,7 +36,6 @@ for data in api_call:
         created_at_date = pd.to_datetime(data['created_at']).date()
         difference = datetime.now().date() - created_at_date
         if difference > timedelta(days=10):
-            print(close_request(data['number']))
-            # print("Request Closed successfuly!")
+            close_request(data['number'])
         elif difference > timedelta(days=8) and difference < timedelta(days=10):
             email_func()
