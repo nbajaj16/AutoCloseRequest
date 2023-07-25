@@ -32,7 +32,6 @@ def close_request(number):
     patch_request = requests.patch(patch_api, headers=headers, json=data)
     return patch_request
 
-# Check if the difference is more than 8 days for each open pull request
 for data in api_call:
     if data['state'] == 'open':
         created_at_date = pd.to_datetime(data['created_at']).date()
