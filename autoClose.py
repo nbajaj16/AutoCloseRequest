@@ -48,6 +48,7 @@ def close_request(number):
     patch_request = requests.patch(patch_api, headers=headers, json=data)
     return patch_request
 
+#funtion to check
 for pr_data in pull_requests:
     if pr_data['state'] == 'open' and pr_data['base']['ref'] == 'b1':
         print("PR with the title:", pr_data['title'], "and the id", pr_data['id'], "\n")
